@@ -20,8 +20,8 @@ python3.6 -V
 python3.6 -m pip install requests
 pip3 -V
 echo "-----> pip3 install weasyprint"
-pip3 install cairocffi
 pip3 install weasyprint
+pip3 install cairocffi
 echo "-----> weasyprint installed!"
 sleep 1 # wait so that docker run has not exited before docker attach
 EOF
