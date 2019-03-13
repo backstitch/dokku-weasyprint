@@ -6,7 +6,7 @@ This plugin should fix the problems you may have when downloading weasyprint wit
 ## Installation
 
 On your dokku server:
-```sh
+```
 # On 0.3.x
 git clone https://github.com/backstitch/dokku-weasyprint /var/lib/dokku/plugins/dokku-weasyprint
 
