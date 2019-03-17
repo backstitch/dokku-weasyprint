@@ -10,7 +10,7 @@ tar xzvf openssl-1.1.1.tar.gz
 cd openssl-1.1.1
 ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
 make
-sudo make install
+make install
 
 echo "-----> install requirements"
 
