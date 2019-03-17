@@ -4,10 +4,19 @@ set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 APP="$1"; IMAGE="dokku/$APP"
 echo "-----> Installing weasyprint ..."
 COMMAND=$(cat <<EOF
+echo "-----> upgrade openssl"
+wget https://www.openssl.org/source/openssl-1.1.1.tar.gz
+tar xzvf openssl-1.1.1.tar.gz
+cd openssl-1.1.1
+./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
+make
+sudo make install
+
+echo "-----> install requirements"
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y update
-apt-get install -y build-essential python3-dev python3-pip python3-setuptools python3-wheel python3-cffi libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info
+apt-get install -y build-essential zlib1g-dev python3-dev python3-pip python3-setuptools python3-wheel python3-cffi libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info
 echo "-----> install python3.7"
 
 wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
@@ -16,10 +25,10 @@ cd Python-3.7.2
 ./configure --enable-optimizations
 make altinstall
 python3.7 -V
-echo "-----> pip3 install weasyprint"
-python3.7 -m pip install weasyprint
-echo "-----> pip3 install cairocffi"
-python3.7 -m pip installcairocffi
+echo "-----> pip install weasyprint"
+pip3.7 install weasyprint
+echo "-----> pip install cairocffi"
+pip3.7 install cairocffi
 echo "-----> weasyprint installed!"
 weasyprint --version
 sleep 1 # wait so that docker run has not exited before docker attach
