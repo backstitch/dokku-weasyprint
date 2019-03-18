@@ -25,6 +25,9 @@ cd Python-3.7.2
 ./configure --enable-optimizations
 make altinstall
 python3.7 -V
+echo "-----> pip install certifi"
+pip3.7 install certifi
+cp /usr/local/lib/python3.7/site-packages/certifi/cacert.pem /usr/local/ssl/cert.pem
 echo "-----> pip install weasyprint"
 pip3.7 install weasyprint
 echo "-----> pip install cairocffi"
