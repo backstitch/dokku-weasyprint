@@ -28,6 +28,15 @@ python3.7 -V
 echo "-----> pip install certifi"
 pip3.7 install certifi
 cp /usr/local/lib/python3.7/site-packages/certifi/cacert.pem /usr/local/ssl/cert.pem
+
+echo "-----> upgraded cairo"
+rm /usr/lib/x86_64-linux-gnu/libcairo* &&
+wget -c https://cairographics.org/releases/cairo-1.16.0.tar.xz &&
+tar -xJf cairo-1.16.0.tar.xz && rm cairo-1.16.0.tar.xz
+cd cairo-1.16.0/
+./configure && make && make install &&
+cp /usr/local/lib/libcairo* /usr/lib/x86_64-linux-gnu/
+
 echo "-----> pip install weasyprint"
 pip3.7 install weasyprint
 echo "-----> pip install cairocffi"
