@@ -6,8 +6,8 @@ echo "-----> Installing weasyprint ..."
 COMMAND=$(cat <<EOF
 echo "-----> upgrade openssl"
 wget https://www.openssl.org/source/openssl-1.1.1f.tar.gz
-tar xzvf openssl-1.1.1.tar.gz
-cd openssl-1.1.1
+tar xzvf openssl-1.1.1f.tar.gz
+cd openssl-1.1.1f
 ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
 make
 make install
