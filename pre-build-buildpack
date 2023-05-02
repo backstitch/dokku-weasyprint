@@ -52,10 +52,10 @@ cd cairo-1.16.0/
 ./configure && make && make install &&
 cp /usr/local/lib/libcairo* /usr/lib/x86_64-linux-gnu/
 
+echo "-----> pip install cairocffi"
+pip3.7 install cairocffi==1.4.0
 echo "-----> pip install weasyprint"
 pip3.7 install weasyprint==52.5
-echo "-----> pip install cairocffi"
-pip3.7 install cairocffi
 echo "-----> weasyprint installed!"
 weasyprint --version
 sleep 1 # wait so that docker run has not exited before docker attach
