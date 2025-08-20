@@ -52,6 +52,17 @@ cd cairo-1.16.0/
 ./configure && make && make install &&
 cp /usr/local/lib/libcairo* /usr/lib/x86_64-linux-gnu/
 
+apt-get update
+apt-get install -y build-essential python3.7-dev libffi-dev libcairo2 libcairo2-dev \
+                   libpango1.0-dev libgdk-pixbuf2.0-dev shared-mime-info
+
+# modern pip & wheels to satisfy setup_requires
+python3.7 -m pip install --upgrade pip setuptools wheel
+
+# cffi must exist before cairocffi
+pip3.7 install "cffi>=1.15.1"
+
+
 echo "-----> pip install cairocffi"
 pip3.7 install cairocffi==1.4.0
 echo "-----> pip install weasyprint"
