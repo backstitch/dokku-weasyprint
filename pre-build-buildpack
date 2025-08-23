@@ -52,6 +52,9 @@ cd cairo-1.16.0/
 ./configure && make && make install &&
 cp /usr/local/lib/libcairo* /usr/lib/x86_64-linux-gnu/
 
+echo "-----> pip install cffi"
+pip3.7 install cffi>=1.15.1
+
 echo "-----> pip install cairocffi"
 pip3.7 install cairocffi==1.4.0
 echo "-----> pip install weasyprint"
