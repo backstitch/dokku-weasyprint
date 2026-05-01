@@ -3,21 +3,14 @@
 set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 APP="$1"; IMAGE="dokku/$APP"
 echo "-----> Installing weasyprint ..."
-COMMAND=$(cat <<EOF
-echo "-----> upgrade openssl"
-wget --no-check-certificate https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/ca-certificates/20210119~20.04.2/ca-certificates_20210119~20.04.2.tar.xz
-unxz ca-certificates_20210119~20.04.2.tar.xz
-tar -xf ca-certificates_20210119~20.04.2.tar
-cd ca-certificates-20210119~20.04.1
-make
-make install
-echo 'mozilla/ISRG_Root_X1.crt' | tee -a /etc/ca-certificates.conf
-sed -i"" 's/mozilla\/DST_Root_CA_X3.crt/!mozilla\/DST_Root_CA_X3.crt/' /etc/ca-certificates.conf
-dpkg-reconfigure -fnoninteractive ca-certificates
-cd /etc/ssl/certs/
-/usr/bin/c_rehash
-cd /
+COMMAND=$(cat <<'EOF'
+echo "-----> refresh ca-certificates"
+export DEBIAN_FRONTEND=noninteractive
+apt-get -y update
+apt-get install -y --reinstall ca-certificates
+update-ca-certificates
 
+echo "-----> upgrade openssl"
 wget https://www.openssl.org/source/openssl-1.1.1f.tar.gz
 tar xzvf openssl-1.1.1f.tar.gz
 cd openssl-1.1.1f
